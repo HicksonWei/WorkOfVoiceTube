@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VoiceTube</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <div id="wrap">
+    <div id="main">
+      <div class="kind">
+        <div class="order">
+          <h3>排序</h3>
+          <div class="selection">
+            <input type="radio" id="publish" value="opt1" v-model="sorting">
+            <label for="publish" @click="sortPublish">發布時間</label>
+            <input type="radio" id="views" value="opt2" v-model="sorting">
+            <label for="views" @click="sortViews">觀看次數</label>
+            <input type="radio" id="collectCount" value="opt3" v-model="sorting">
+            <label for="collectCount" @click="sortCollectCount">收藏次數</label>
+          </div>
+        </div>
+        <div class="length">
+          <h3>長度</h3>
+          <div class="selection">
+            <input type="radio" id="all" value="span1" v-model="timespan">
+            <label for="all" @click="allSpan">{{screenSize > 500 ? "不限" : "all" }}</label>
+            <input type="radio" id="short" value="span2" v-model="timespan">
+            <label for="short" @click="shortSpan">{{screenSize > 500 ? "4分鐘以下" : "<5min" }}</label>
+            <input type="radio" id="medium" value="span3" v-model="timespan">
+            <label for="medium" @click="mediumSpan ">{{screenSize > 500 ? "5-10分鐘" : "5-10min" }}</label>
+            <input type="radio" id="long" value="span4" v-model="timespan">
+            <label for="long" @click="longSpan">{{screenSize > 500 ? "超過10分鐘" : ">10min" }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="cardBoard">
+        <div class="card" v-for="card in cards">
+          <div class="imgFrame">
+            <div class="thumbnail" :style="imgStyle(card.thumbnail)"></div>
+            <span class="duration">{{timeFormat(card.duration)}}</span>
+          </div>
+          <div class="content">
+            <h2 class="title">{{card.title}}</h2>
+            <span class="views">
+              <i class="material-icons">&#xE310;</i>
+              <span class="watchCount">
+                {{card.views}}
+              </span>
+            </span>
+            <span class="sort">
+              <span class="captions" v-for="caption in card.captions">{{captionIndex[caption]}}</span>
+              <span class="level">{{levelIndex[card.level]}}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/all.js"></script>
+</body>
+
+</html>
